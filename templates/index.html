@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TeamNotes</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="navbar">
+    <h1>TeamNotes</h1>
+
+    <div>
+        <a href="/">Home</a>
+        <a href="/contact">Contact Us</a>
+        
+    </div>
+</div>
+
+<div class="content">
+
+    <h2>✨ Welcome to TeamNotes</h2>
+
+    <p>
+        Share ideas, save notes, collaborate with your team and discover thoughts from the community in one beautiful workspace.
+    </p>
+    <br><br>
+    <a href="/notes" style="
+    background:white;
+    color:#4f46e5;
+    padding:14px 30px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;">
+    Explore Notes →
+    </a>
+
+    <div class="boxes">
+
+        <div class="box">
+            <h4>Shared Notes</h4>
+            <p>Everyone can read and write notes.</p>
+        </div>
+
+        <div class="box">
+            <h4>Notifications</h4>
+            <p>Get notified on new notes.</p>
+        </div>
+
+        <div class="box">
+            <h4>Task Checklist</h4>
+            <p>HTML done. Chatbot done. GitHub pending.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Chatbot -->
+
+<button id="chat-btn" onclick="toggleChat()">
+    &#128172;
+</button>
+
+<div id="chat-box">
+
+    <div class="chat-top">
+        TeamNotes Bot
+    </div>
+
+    <div class="chat-msgs" id="msgs">
+    </div>
+
+    <div class="chat-input">
+
+        <input
+            type="text"
+            id="msg-input"
+            placeholder="Type here..."
+            onkeydown="if(event.key==='Enter') sendMsg()">
+
+        <button onclick="sendMsg()">
+            &#9658;
+        </button>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notes Feed</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <h1>✨ Notes Circle</h1>
+
+    <div>
+        <a href="/">Home</a>
+        <a href="/contact">Contact</a>
+    </div>
+</div>
+
+<div class="feed-header">
+    <span class="feed-tag">COMMUNITY</span>
+
+    <h2 class="feed-title">
+        Ideas Worth Sharing
+    </h2>
+
+    <p class="feed-subtitle">
+        Read thoughts, ideas and notes shared by everyone.
+    </p>
+</div>
+
+<div class="search-box">
+    <input
+        type="text"
+        placeholder="Search notes..."
+    >
+</div>
+
+<div id="notes-feed"></div>
+
+<div id="notes-feed"></div>
+
+<script>
+
+fetch("/api/notes")
+.then(response => response.json())
+.then(result => {
+
+    let html = "";
+
+    result.notes.forEach(note => {
+
+        let initials = note.name
+            .split(" ")
+            .map(n => n[0])
+            .join("")
+            .substring(0,2);
+
+        html += `
+        <div class="note-card">
+
+            <div class="note-user">
+
+                <div class="avatar">
+                    ${initials}
+                </div>
+
+                <div>
+                    <div class="user-name">
+                        ${note.name}
+                    </div>
+
+                    <div class="user-role">
+                        Community Member
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="note-content">
+                ${note.note}
+            </div>
+
+            <div class="note-footer">
+                <span>❤️ Like</span>
+                <span>💬 Comment</span>
+                <span>🔗 Share</span>
+            </div>
+
+        </div>
+        `;
+    });
+
+    document.getElementById("notes-feed").innerHTML = html;
+});
+</script>
+
+</body>
+</html>
