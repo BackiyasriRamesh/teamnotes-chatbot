@@ -1,99 +1,157 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Notes Feed</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Notes | TeamNotes</title>
+
     <link rel="stylesheet"
-          href="{{ url_for('static',
-          filename='css/style.css') }}">
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-<div class="navbar">
-    <h1>✨ Notes Circle</h1>
+<!-- ================= NAVBAR ================= -->
 
-    <div>
+<div class="navbar">
+
+    <h1>📝 TeamNotes</h1>
+
+    <div class="nav-links">
         <a href="/">Home</a>
         <a href="/contact">Contact</a>
     </div>
+
 </div>
 
-<div class="feed-header">
-    <span class="feed-tag">COMMUNITY</span>
+<!-- ================= GUEST PANEL ================= -->
 
-    <h2 class="feed-title">
-        Ideas Worth Sharing
-    </h2>
+<div id="guest-panel" class="container">
 
-    <p class="feed-subtitle">
-        Read thoughts, ideas and notes shared by everyone.
+    <h2>Welcome to TeamNotes</h2>
+
+    <p>
+        Register or Login to manage your personal notes.
     </p>
-</div>
 
-<div class="search-box">
-    <input
-        type="text"
-        placeholder="Search notes..."
-    >
-</div>
+    <div class="auth-container">
 
-<div id="notes-feed"></div>
+        <!-- Login -->
 
-<div id="notes-feed"></div>
+        <div class="auth-card">
 
-<script>
+            <h3>Login</h3>
 
-fetch("/api/notes")
-.then(response => response.json())
-.then(result => {
+            <input
+                type="email"
+                id="login-email"
+                placeholder="Enter Email">
 
-    let html = "";
-
-    result.notes.forEach(note => {
-
-        let initials = note.name
-            .split(" ")
-            .map(n => n[0])
-            .join("")
-            .substring(0,2);
-
-        html += `
-        <div class="note-card">
-
-            <div class="note-user">
-
-                <div class="avatar">
-                    ${initials}
-                </div>
-
-                <div>
-                    <div class="user-name">
-                        ${note.name}
-                    </div>
-
-                    <div class="user-role">
-                        Community Member
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="note-content">
-                ${note.note}
-            </div>
-
-            <div class="note-footer">
-                <span>❤️ Like</span>
-                <span>💬 Comment</span>
-                <span>🔗 Share</span>
-            </div>
+            <button onclick="loginHome()">
+                Login
+            </button>
 
         </div>
-        `;
-    });
 
-    document.getElementById("notes-feed").innerHTML = html;
-});
-</script>
+        <!-- Register -->
+
+        <div class="auth-card">
+
+            <h3>Create Account</h3>
+
+            <input
+                type="text"
+                id="reg-first"
+                placeholder="First Name">
+
+            <input
+                type="text"
+                id="reg-last"
+                placeholder="Last Name">
+
+            <input
+                type="email"
+                id="reg-email"
+                placeholder="Email">
+
+            <button onclick="registerHome()">
+                Register
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= USER PANEL ================= -->
+
+<div
+    id="user-panel"
+    class="container"
+    style="display:none;">
+
+    <div class="dashboard-header">
+
+        <h2 id="welcome-user">
+            Welcome
+        </h2>
+
+        <button
+            class="logout-btn"
+            onclick="logoutHome()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+    <div class="add-section">
+
+        <button
+            class="add-btn"
+            onclick="showAddNote()">
+
+            + Add New Note
+
+        </button>
+
+    </div>
+
+    <div
+        id="add-note-box"
+        style="display:none;">
+
+        <textarea
+            id="new-note"
+            rows="5"
+            placeholder="Write your note..."></textarea>
+
+        <br>
+
+        <button
+            class="save-btn"
+            onclick="saveNoteHome()">
+
+            Save Note
+
+        </button>
+
+    </div>
+
+    <h3 class="notes-title">
+        My Notes
+    </h3>
+
+    <div id="user-notes">
+
+    </div>
+
+</div>
+
+<!-- ================= SCRIPT ================= -->
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 </html>

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TeamNotes</title>
 
     <link rel="stylesheet"
@@ -10,87 +12,237 @@
 
 <body>
 
-<div class="navbar">
-    <h1>TeamNotes</h1>
+    <!-- ================= NAVBAR ================= -->
 
-    <div>
-        <a href="/">Home</a>
-        <a href="/contact">Contact Us</a>
-        
-    </div>
-</div>
+    <nav class="navbar">
 
-<div class="content">
+        <h1>📝 TeamNotes</h1>
 
-    <h2>✨ Welcome to TeamNotes</h2>
-
-    <p>
-        Share ideas, save notes, collaborate with your team and discover thoughts from the community in one beautiful workspace.
-    </p>
-    <br><br>
-    <a href="/notes" style="
-    background:white;
-    color:#4f46e5;
-    padding:14px 30px;
-    border-radius:30px;
-    text-decoration:none;
-    font-weight:bold;">
-    Explore Notes →
-    </a>
-
-    <div class="boxes">
-
-        <div class="box">
-            <h4>Shared Notes</h4>
-            <p>Everyone can read and write notes.</p>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/notes">Explore Notes</a>
+            <a href="/contact">Contact Us</a>
         </div>
 
-        <div class="box">
-            <h4>Notifications</h4>
-            <p>Get notified on new notes.</p>
+    </nav>
+
+    <!-- ================= MAIN HOME LAYOUT ================= -->
+
+    <section class="home-layout">
+
+        <!-- ================= LEFT CONTENT (30%) ================= -->
+
+        <div class="left-content">
+
+            <span class="tag">
+                TEAM NOTES
+            </span>
+
+            <h1>
+                Welcome to
+                <span>TeamNotes</span>
+            </h1>
+
+            <p>
+                TeamNotes is your personal workspace for storing meeting notes,
+                project ideas, reminders, and important thoughts.
+                Keep everything organized in one place and access your notes
+                anytime.
+            </p>
+
+            <p>
+                Create an account to manage your own private notes or explore
+                ideas shared by the community.
+            </p>
+
+            <a href="/notes" class="widget-btn">
+                Explore Community Notes →
+            </a>
+
         </div>
 
-        <div class="box">
-            <h4>Task Checklist</h4>
-            <p>HTML done. Chatbot done. GitHub pending.</p>
+        <!-- ================= RIGHT CONTENT (70%) ================= -->
+
+        <div class="notes-panel">
+
+            <div class="panel-header">
+                📒 My Notes Dashboard
+            </div>
+
+            <div class="panel-body">
+
+                <!-- ================= GUEST PANEL ================= -->
+
+                <div id="guest-panel">
+
+                    <div class="panel-icon">
+                        📝
+                    </div>
+
+                    <h2>Welcome</h2>
+
+                    <p>
+                        Login to access your personal notes or register if you're
+                        new to TeamNotes.
+                    </p>
+
+                    <hr>
+
+                    <!-- LOGIN -->
+
+                    <h3>Login</h3>
+
+                    <input
+                        type="email"
+                        id="login-email"
+                        placeholder="Enter Email Address">
+
+                    <button
+                        class="login-btn"
+                        onclick="loginHome()">
+
+                        Login
+
+                    </button>
+
+                    <br><br>
+
+                    <!-- REGISTER -->
+
+                    <h3>Create Account</h3>
+
+                    <input
+                        type="text"
+                        id="reg-first"
+                        placeholder="First Name">
+
+                    <input
+                        type="text"
+                        id="reg-last"
+                        placeholder="Last Name">
+
+                    <input
+                        type="email"
+                        id="reg-email"
+                        placeholder="Email Address">
+
+                    <button
+                        class="register-btn"
+                        onclick="registerHome()">
+
+                        Register
+
+                    </button>
+
+                </div>
+
+                <!-- ================= USER PANEL ================= -->
+
+                <div id="user-panel" style="display:none;">
+
+                    <div class="panel-icon">
+                        👤
+                    </div>
+
+                    <h2 id="welcome-user"></h2>
+
+                    <button
+                        class="login-btn"
+                        onclick="showAddNote()">
+
+                        + Add New Note
+
+                    </button>
+
+                    <!-- ADD NOTE -->
+
+                    <div
+                        id="add-note-box"
+                        style="display:none; margin-top:20px;">
+
+                        <textarea
+                            id="new-note"
+                            rows="5"
+                            placeholder="Write your note here..."></textarea>
+
+                        <br><br>
+
+                        <button
+                            class="login-btn"
+                            onclick="saveNoteHome()">
+
+                            Save Note
+
+                        </button>
+
+                    </div>
+
+                    <hr>
+
+                    <h3>My Notes</h3>
+
+                    <div id="user-notes">
+
+                    </div>
+
+                    <br>
+
+                    <button
+                        class="register-btn"
+                        onclick="logoutHome()">
+
+                        Logout
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= CHATBOT ================= -->
+
+    <button
+        id="chat-btn"
+        onclick="toggleChat()">
+
+        💬
+
+    </button>
+
+    <div id="chat-box">
+
+        <div class="chat-top">
+            🤖 TeamNotes Assistant
+        </div>
+
+        <div
+            class="chat-msgs"
+            id="msgs">
+
+        </div>
+
+        <div class="chat-input">
+
+            <input
+                type="text"
+                id="msg-input"
+                placeholder="Type your message..."
+                onkeydown="if(event.key==='Enter') sendMsg()">
+
+            <button onclick="sendMsg()">
+                ➤
+            </button>
+
         </div>
 
     </div>
 
-</div>
-
-<!-- Chatbot -->
-
-<button id="chat-btn" onclick="toggleChat()">
-    &#128172;
-</button>
-
-<div id="chat-box">
-
-    <div class="chat-top">
-        TeamNotes Bot
-    </div>
-
-    <div class="chat-msgs" id="msgs">
-    </div>
-
-    <div class="chat-input">
-
-        <input
-            type="text"
-            id="msg-input"
-            placeholder="Type here..."
-            onkeydown="if(event.key==='Enter') sendMsg()">
-
-        <button onclick="sendMsg()">
-            &#9658;
-        </button>
-
-    </div>
-
-</div>
-
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
+
 </html>
